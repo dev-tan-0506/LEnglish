@@ -3,9 +3,9 @@
 ## Current Status
 
 **Active Phase:** 1 (Pending Start)
-**Current Step:** discuss-phase
-**Stopped At:** Phase 1 context gathered
-**Resume File:** .planning/phases/01-authentication-system/01-CONTEXT.md
+**Current Step:** ui-phase complete
+**Stopped At:** Phase 1 UI-SPEC approved
+**Resume File:** .planning/phases/01-authentication-system/01-UI-SPEC.md
 
 ## Project Reference
 
