@@ -69,35 +69,35 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase [N] | Pending |
-| AUTH-02 | Phase [N] | Pending |
-| AUTH-03 | Phase [N] | Pending |
-| AUTH-04 | Phase [N] | Pending |
-| VOCB-01 | Phase [N] | Pending |
-| VOCB-02 | Phase [N] | Pending |
-| VOCB-03 | Phase [N] | Pending |
-| VOCB-04 | Phase [N] | Pending |
-| LRN-01 | Phase [N] | Pending |
-| LRN-02 | Phase [N] | Pending |
-| LRN-03 | Phase [N] | Pending |
-| LRN-04 | Phase [N] | Pending |
-| LRN-05 | Phase [N] | Pending |
-| LRN-06 | Phase [N] | Pending |
-| LRN-07 | Phase [N] | Pending |
-| AI-01 | Phase [N] | Pending |
-| AI-02 | Phase [N] | Pending |
-| AI-03 | Phase [N] | Pending |
-| GAME-01 | Phase [N] | Pending |
-| GAME-02 | Phase [N] | Pending |
-| GAME-03 | Phase [N] | Pending |
-| GAME-04 | Phase [N] | Pending |
-| GAME-05 | Phase [N] | Pending |
-| GAME-06 | Phase [N] | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| VOCB-01 | Phase 2 | Pending |
+| VOCB-02 | Phase 2 | Pending |
+| VOCB-03 | Phase 2 | Pending |
+| VOCB-04 | Phase 2 | Pending |
+| LRN-01 | Phase 3 | Pending |
+| LRN-02 | Phase 3 | Pending |
+| LRN-03 | Phase 5 | Pending |
+| LRN-04 | Phase 5 | Pending |
+| LRN-05 | Phase 5 | Pending |
+| LRN-06 | Phase 5 | Pending |
+| LRN-07 | Phase 5 | Pending |
+| AI-01 | Phase 7 | Pending |
+| AI-02 | Phase 7 | Pending |
+| AI-03 | Phase 7 | Pending |
+| GAME-01 | Phase 4 | Pending |
+| GAME-02 | Phase 4 | Pending |
+| GAME-03 | Phase 6 | Pending |
+| GAME-04 | Phase 6 | Pending |
+| GAME-05 | Phase 6 | Pending |
+| GAME-06 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24 ⚠️
+- Mapped to phases: 24
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-05*
