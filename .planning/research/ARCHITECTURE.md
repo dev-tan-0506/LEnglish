@@ -5,29 +5,34 @@
 
 ## System Architecture
 
-### Approach: Modular Monolith (Next.js)
+### Approach: Separated Frontend + Backend (Next.js + NestJS)
 
-For a vocabulary learning app, a **modular monolith** using Next.js is recommended over microservices. The app doesn't need the operational complexity of microservices at this stage, and Next.js provides natural module boundaries via its folder structure.
+A **separated architecture** with Next.js handling the frontend and NestJS as a dedicated backend API. NestJS provides structured module system with dependency injection, guards, pipes, and interceptors — ideal for complex business logic like SRS algorithms and AI integration.
 
 ```
 ┌─────────────────────────────────────────────────┐
-│                   Client (Browser)               │
-│  React Components + Game Engine + AI Features    │
+│              Client (Browser)                    │
+│  Next.js — React Components + Games + UI        │
+│  Tailwind CSS + shadcn/ui                       │
+│  TanStack Query (API state) + Zustand (UI state)│
 └──────────────────────┬──────────────────────────┘
-                       │
+                       │ REST API + WebSocket
+                       │ JWT Auth Headers
 ┌──────────────────────▼──────────────────────────┐
-│              Next.js App Router                  │
+│              NestJS Backend API                  │
 │                                                  │
 │  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
 │  │   Auth   │ │  Vocab   │ │   Learning       │ │
-│  │  Module  │ │  Module  │ │   Module         │ │
+│  │  Module  │ │  Module  │ │   Module (SRS)   │ │
 │  └──────────┘ └──────────┘ └──────────────────┘ │
 │  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
 │  │  Games   │ │    AI    │ │  Gamification    │ │
 │  │  Module  │ │  Module  │ │   Module         │ │
 │  └──────────┘ └──────────┘ └──────────────────┘ │
 │                                                  │
-│  Server Actions / API Routes / tRPC              │
+│  Passport.js + JWT Guards                        │
+│  Prisma ORM                                      │
+│  WebSocket Gateway (leaderboard)                 │
 └──────────────────────┬──────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────┐
@@ -35,7 +40,7 @@ For a vocabulary learning app, a **modular monolith** using Next.js is recommend
 │                                                  │
 │  ┌─────────────┐  ┌───────┐  ┌───────────────┐ │
 │  │ PostgreSQL  │  │ Redis │  │  AI API       │ │
-│  │ (Supabase)  │  │(Cache)│  │ (Gemini)      │ │
+│  │             │  │(Cache)│  │ (Gemini)      │ │
 │  └─────────────┘  └───────┘  └───────────────┘ │
 └─────────────────────────────────────────────────┘
 ```
