@@ -4,6 +4,7 @@ import { validateEnv } from "./common/config/env.schema";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UsersModule } from "./users/users.module";
 import { HealthController } from "./health.controller";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { HealthController } from "./health.controller";
       validate: validateEnv
     }),
     PrismaModule,
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
   controllers: [HealthController]
 })

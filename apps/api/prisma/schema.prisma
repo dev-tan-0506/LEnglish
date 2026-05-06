@@ -43,8 +43,6 @@ model RefreshToken {
   createdAt    DateTime  @default(now()) @map("created_at")
 
   user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  replacedBy RefreshToken? @relation("RefreshTokenReplacement", fields: [replacedById], references: [id])
-  replaces   RefreshToken? @relation("RefreshTokenReplacement")
 
   @@index([userId])
   @@index([tokenHash])
@@ -65,4 +63,3 @@ model PasswordResetToken {
   @@index([tokenHash])
   @@map("password_reset_tokens")
 }
-
