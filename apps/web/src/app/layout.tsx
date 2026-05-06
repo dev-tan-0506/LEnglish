@@ -19,8 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
-      <body className={nunito.className}>{children}</body>
+    <html lang="vi" suppressHydrationWarning>
+      <body
+        className={`${nunito.variable} min-h-screen bg-slate-950 font-sans text-slate-50 antialiased`}
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }
