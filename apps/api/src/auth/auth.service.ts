@@ -86,12 +86,16 @@ export class AuthService {
     await this.revokeRefreshToken(existing.id, now);
   }
 
+  async me(userId: string) {
+    return this.users.findById(userId);
+  }
+
   private async issueTokens(userId: string, email: string) {
     const accessToken = await this.tokens.signAccessToken({ sub: userId, email });
     const refreshToken = this.tokens.generateRefreshToken();
 
     return { accessToken, refreshToken };
-  }
+}
 
   private computeRefreshExpiry() {
     const seconds = Number(this.config.get("JWT_REFRESH_TTL_SECONDS"));

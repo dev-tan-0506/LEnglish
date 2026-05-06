@@ -269,4 +269,33 @@ describe("auth integration (phase 01-02)", () => {
       .set("Cookie", [accessPair, newRefreshPair])
       .expect(401);
   });
+
+  it("GET /auth/me is protected and returns current user for valid access cookie", async () => {
+    await request(app.getHttpServer()).get("/auth/me").expect(401);
+
+    const registerRes = await request(app.getHttpServer())
+      .post("/auth/register")
+      .send({ email: "user4@example.com", password: "Strong1!", name: "User 4" })
+      .expect(201);
+
+    const setCookies = registerRes.headers["set-cookie"] as string[];
+    const accessCookie = setCookies.find((c) => c.startsWith("lenglish_access="))!;
+    const accessPair = accessCookie.split(";", 1)[0]!;
+
+    const meRes = await request(app.getHttpServer())
+      .get("/auth/me")
+      .set("Cookie", [accessPair])
+      .expect(200);
+
+    expect(meRes.body.email).toBe("user4@example.com");
+    expect(meRes.body.passwordHash).toBeUndefined();
+  });
+
+  it("public routes remain public under the global guard", async () => {
+    await request(app.getHttpServer()).get("/health").expect(200);
+    await request(app.getHttpServer())
+      .post("/auth/login")
+      .send({ email: "nobody@example.com", password: "Strong1!" })
+      .expect(401);
+  });
 });

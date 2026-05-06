@@ -1,9 +1,11 @@
-import { Body, Controller, Post, Req, Res, UnauthorizedException } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, Res, UnauthorizedException } from "@nestjs/common";
 import type { Request, Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
 import { AuthCookieService } from "../common/cookies/auth-cookie.service";
+import { Public } from "../common/decorators/public.decorator";
+import { CurrentUser } from "../common/decorators/current-user.decorator";
 
 @Controller("auth")
 export class AuthController {
@@ -13,6 +15,7 @@ export class AuthController {
   ) {}
 
   @Post("register")
+  @Public()
   async register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
     const { user, accessToken, refreshToken } = await this.auth.register(dto);
 
@@ -27,6 +30,7 @@ export class AuthController {
   }
 
   @Post("login")
+  @Public()
   async login(@Body() dto: LoginDto, @Res({ passthrough: true }) res: Response) {
     const { user, accessToken, refreshToken } = await this.auth.login(dto);
 
@@ -41,6 +45,7 @@ export class AuthController {
   }
 
   @Post("refresh")
+  @Public()
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const refreshToken = (req.cookies?.[this.cookies.refreshCookieName] ?? "") as string;
     if (!refreshToken) throw new UnauthorizedException("Missing refresh token");
@@ -58,6 +63,7 @@ export class AuthController {
   }
 
   @Post("logout")
+  @Public()
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const refreshToken = (req.cookies?.[this.cookies.refreshCookieName] ?? "") as string;
     await this.auth.logout(refreshToken || undefined);
@@ -66,5 +72,10 @@ export class AuthController {
     res.clearCookie(this.cookies.refreshCookieName, this.cookies.getClearCookieOptions());
 
     return { ok: true };
+  }
+
+  @Get("me")
+  async me(@CurrentUser() user: { id: string; email: string }) {
+    return this.auth.me(user.id);
   }
 }
