@@ -21,7 +21,7 @@
 
 Plans:
 - [x] 01-01-PLAN.md - Workspace and separated app foundation. (completed 2026-05-06)
-- [ ] 01-02-PLAN.md - Backend registration, login, refresh, logout, and session guard.
+- [x] 01-02-PLAN.md - Backend registration, login, refresh, logout, and session guard. (completed 2026-05-06)
 - [ ] 01-03-PLAN.md - Backend profile management and password reset email flow.
 - [ ] 01-04-PLAN.md - Frontend auth, session, and reset password UI.
 - [ ] 01-05-PLAN.md - Frontend onboarding and profile management UI.
