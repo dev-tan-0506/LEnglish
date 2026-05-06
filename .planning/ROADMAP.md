@@ -9,7 +9,7 @@
 ## Phases
 
 ### Phase 1: Authentication System
-**Status:** Planned
+**Status:** In Progress
 **Goal:** End-to-end user registration, login, and profile management across NestJS and Next.js.
 **Requirements:** AUTH-01, AUTH-02, AUTH-03, AUTH-04
 **UI hint:** yes
@@ -20,7 +20,7 @@
 3. Session is maintained across browser refreshes.
 
 Plans:
-- [ ] 01-01-PLAN.md - Workspace and separated app foundation.
+- [x] 01-01-PLAN.md - Workspace and separated app foundation. (completed 2026-05-06)
 - [ ] 01-02-PLAN.md - Backend registration, login, refresh, logout, and session guard.
 - [ ] 01-03-PLAN.md - Backend profile management and password reset email flow.
 - [ ] 01-04-PLAN.md - Frontend auth, session, and reset password UI.
