@@ -8,6 +8,7 @@ playwright-report/
 .env.local
 uploads/
 *.log
+*.tsbuildinfo
 .codex
 .claude
 .agent

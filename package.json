@@ -1,0 +1,23 @@
+{
+  "name": "lenglish",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter @lenglish/api dev",
+    "dev:web": "pnpm --filter @lenglish/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "e2e": "pnpm --filter @lenglish/web e2e",
+    "typecheck": "pnpm -r typecheck",
+    "db:up": "docker compose up -d postgres",
+    "db:migrate": "pnpm --filter @lenglish/api db:migrate",
+    "db:studio": "pnpm --filter @lenglish/api db:studio"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lenglish-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: lenglish
+      POSTGRES_USER: lenglish
+      POSTGRES_PASSWORD: lenglish_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lenglish -d lenglish"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
