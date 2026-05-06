@@ -9,14 +9,45 @@
 ## Phases
 
 ### Phase 1: Authentication System
-**Status:** Pending
+**Status:** Planned
 **Goal:** End-to-end user registration, login, and profile management across NestJS and Next.js.
 **Requirements:** AUTH-01, AUTH-02, AUTH-03, AUTH-04
 **UI hint:** yes
+**Plans:** 6 plans in 5 waves
 **Success Criteria:**
 1. User can register and log in to the application, receiving a JWT token.
 2. User can view and update their profile details (name, target TOEIC score).
 3. Session is maintained across browser refreshes.
+
+Plans:
+- [ ] 01-01-PLAN.md - Workspace and separated app foundation.
+- [ ] 01-02-PLAN.md - Backend registration, login, refresh, logout, and session guard.
+- [ ] 01-03-PLAN.md - Backend profile management and password reset email flow.
+- [ ] 01-04-PLAN.md - Frontend auth, session, and reset password UI.
+- [ ] 01-05-PLAN.md - Frontend onboarding and profile management UI.
+- [ ] 01-06-PLAN.md - API/browser e2e tests and local auth runbook.
+
+Wave 1:
+- 01-01-PLAN.md
+
+Wave 2 (blocked on Wave 1 completion):
+- 01-02-PLAN.md
+
+Wave 3 (blocked on Wave 2 completion where listed):
+- 01-03-PLAN.md
+- 01-04-PLAN.md
+
+Wave 4 (blocked on Wave 3 completion):
+- 01-05-PLAN.md
+
+Wave 5 (blocked on Wave 4 completion):
+- 01-06-PLAN.md
+
+Cross-cutting constraints:
+- Auth tokens must be stored in backend-set httpOnly cookies, never localStorage.
+- Access token TTL is about 15 minutes; refresh token TTL is about 7 days.
+- Passwords and reset/refresh tokens must be stored only as hashes.
+- UI must follow the approved Phase 1 UI-SPEC visual contract.
 
 ### Phase 2: Vocabulary Database & Browsing
 **Status:** Pending
