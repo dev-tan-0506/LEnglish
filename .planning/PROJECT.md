@@ -65,6 +65,17 @@ Users can learn TOEIC vocabulary through engaging, gamified methods with AI assi
 - **Performance**: Vocabulary exercises and games must feel instant — sub-200ms response for non-AI interactions
 - **Accessibility**: Must work on modern browsers (Chrome, Firefox, Safari, Edge)
 
+## Execution Policy (Manual Review)
+
+For phase execution, the developer will review and approve changes **after each task** before any commit and before moving to the next task.
+
+Practical rules:
+- Prefer running execution in interactive mode: `$gsd-execute-phase <phase> --wave <N> --interactive`
+- After completing a task: stop for manual review (`git diff`, run the task's verification command)
+- Apply any local edits requested by the developer
+- Commit only after the developer explicitly approves
+- Then continue to the next task in the wave
+
 ## Key Decisions
 
 <!-- Decisions that constrain future work. Add throughout project lifecycle. -->
