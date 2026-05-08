@@ -4,14 +4,20 @@ LEnglish is a web application for Vietnamese learners preparing for TOEIC vocabu
 
 ## Current Status
 
-Phase 1 is in progress. The repository currently contains the workspace foundation:
+Phase 1 is in progress. The repository currently contains:
 
 - `apps/api` - NestJS API scaffold with a health endpoint.
 - `apps/web` - Next.js App Router scaffold with Tailwind CSS.
 - `docker-compose.yml` - Local PostgreSQL service for later Prisma work.
 - `.planning/` - GSD planning artifacts, phase plans, and execution summaries.
 
-No authentication feature logic has been implemented yet. The next planned work is backend registration, login, refresh, logout, and session guard.
+Authentication backend core (Phase 1 Plan 02) is implemented:
+
+- `POST /auth/register`, `POST /auth/login`, `POST /auth/refresh`, `POST /auth/logout`
+- `GET /auth/me`
+- Cookie-based `JwtAuthGuard` with `@Public()` opt-out
+
+Next planned work is profile management + password reset + frontend auth UI (Phase 1 Plans 03-05).
 
 ## Tech Stack
 
@@ -122,6 +128,10 @@ packages/
 .planning/
 ```
 
+## Coding Rules
+
+Project coding conventions for future agent/developer work are documented in `AGENTS.md`.
+
 ## Styling
 
 The web app uses Tailwind CSS through `@tailwindcss/postcss` and imports Tailwind from `apps/web/src/app/globals.css`.
@@ -132,10 +142,25 @@ Global CSS should stay minimal. Prefer Tailwind utility classes in React compone
 
 GSD phase artifacts live under `.planning/`.
 
+### Manual Review Policy (per task)
+
+After finishing **each task** in a wave/plan, the developer (you) will:
+
+1. Review changes (`git diff`, run the plan's verification command).
+2. Adjust code locally if needed.
+3. Commit only after the review is done.
+4. Continue to the next task in the wave.
+
+For this pacing, prefer running execution in interactive mode:
+
+```text
+$gsd-execute-phase 1 --wave N --interactive
+```
+
 Current next step:
 
 ```text
-$gsd-execute-phase 1 --wave 2
+$gsd-execute-phase 1 --wave 3
 ```
 
 Run that only after reviewing the current foundation changes and deciding to continue Phase 1.
