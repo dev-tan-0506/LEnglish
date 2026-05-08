@@ -2,11 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import crypto from "node:crypto";
-
-export type AccessTokenPayload = {
-  sub: string;
-  email: string;
-};
+import type { AccessTokenPayload } from "./auth.types";
 
 @Injectable()
 export class TokenService {
@@ -15,6 +11,7 @@ export class TokenService {
     private readonly config: ConfigService
   ) {}
 
+  /** Signs a short-lived JWT access token. */
   async signAccessToken(payload: AccessTokenPayload) {
     const secret = String(this.config.get("JWT_ACCESS_SECRET"));
     const ttlSeconds = Number(this.config.get("JWT_ACCESS_TTL_SECONDS"));
@@ -25,17 +22,19 @@ export class TokenService {
     });
   }
 
+  /** Verifies and decodes a JWT access token. */
   async verifyAccessToken(token: string) {
     const secret = String(this.config.get("JWT_ACCESS_SECRET"));
     return this.jwt.verifyAsync<AccessTokenPayload>(token, { secret });
   }
 
+  /** Generates an opaque refresh token for storage as a hash. */
   generateRefreshToken() {
     return crypto.randomBytes(32).toString("base64url");
   }
 
+  /** Hashes a refresh token before persistence or lookup. */
   hashRefreshToken(token: string) {
     return crypto.createHash("sha256").update(token).digest("hex");
   }
 }
-

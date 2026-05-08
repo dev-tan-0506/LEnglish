@@ -2,6 +2,7 @@ import { describe, expect, it, vi, beforeAll, afterAll, beforeEach } from "vites
 import { validate } from "class-validator";
 import { ConflictException } from "@nestjs/common";
 import { RegisterDto } from "../src/auth/dto/register.dto";
+import { UsersRepository } from "../src/users/users.repository";
 import { UsersService } from "../src/users/users.service";
 import { Test } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
@@ -149,7 +150,7 @@ describe("auth integration (phase 01-02)", () => {
       }
     };
 
-    const service = new UsersService(prismaMock as any);
+    const service = new UsersService(new UsersRepository(prismaMock as any));
     const user = await service.createUser({
       email: "TEST@Example.com",
       password: "Strong1!",
@@ -171,7 +172,7 @@ describe("auth integration (phase 01-02)", () => {
       }
     };
 
-    const service = new UsersService(prismaMock as any);
+    const service = new UsersService(new UsersRepository(prismaMock as any));
 
     await expect(
       service.createUser({
@@ -191,7 +192,7 @@ describe("auth integration (phase 01-02)", () => {
     expect(res.body.email).toBe("user1@example.com");
     expect(res.body.passwordHash).toBeUndefined();
 
-    const cookies = res.headers["set-cookie"] as string[] | undefined;
+    const cookies = res.headers["set-cookie"] as unknown as string[] | undefined;
     expect(cookies).toBeTruthy();
     expect(cookies!.some((c) => c.includes("HttpOnly"))).toBe(true);
     expect(cookies!.some((c) => c.includes("SameSite=Lax"))).toBe(true);
@@ -219,7 +220,7 @@ describe("auth integration (phase 01-02)", () => {
       .send({ email: "user2@example.com", password: "Strong1!" })
       .expect(201);
 
-    const cookies = res.headers["set-cookie"] as string[] | undefined;
+    const cookies = res.headers["set-cookie"] as unknown as string[] | undefined;
     expect(cookies).toBeTruthy();
     expect(cookies!.some((c) => c.includes("HttpOnly"))).toBe(true);
   });
@@ -230,7 +231,7 @@ describe("auth integration (phase 01-02)", () => {
       .send({ email: "user3@example.com", password: "Strong1!", name: "User 3" })
       .expect(201);
 
-    const setCookies = registerRes.headers["set-cookie"] as string[];
+    const setCookies = registerRes.headers["set-cookie"] as unknown as string[];
     const accessCookie = setCookies.find((c) => c.startsWith("lenglish_access="))!;
     const refreshCookie = setCookies.find((c) => c.startsWith("lenglish_refresh="))!;
 
@@ -242,7 +243,7 @@ describe("auth integration (phase 01-02)", () => {
       .set("Cookie", [accessPair, refreshPair])
       .expect(201);
 
-    const refreshSetCookies = refreshRes.headers["set-cookie"] as string[];
+    const refreshSetCookies = refreshRes.headers["set-cookie"] as unknown as string[];
     const newRefreshCookie = refreshSetCookies.find((c) => c.startsWith("lenglish_refresh="))!;
     const newRefreshPair = newRefreshCookie.split(";", 1)[0]!;
     expect(newRefreshPair).not.toBe(refreshPair);
@@ -259,7 +260,7 @@ describe("auth integration (phase 01-02)", () => {
       .set("Cookie", [accessPair, newRefreshPair])
       .expect(201);
 
-    const logoutCookies = logoutRes.headers["set-cookie"] as string[] | undefined;
+    const logoutCookies = logoutRes.headers["set-cookie"] as unknown as string[] | undefined;
     expect(logoutCookies).toBeTruthy();
     expect(logoutCookies!.some((c) => c.includes("lenglish_access="))).toBe(true);
     expect(logoutCookies!.some((c) => c.includes("lenglish_refresh="))).toBe(true);
@@ -278,7 +279,7 @@ describe("auth integration (phase 01-02)", () => {
       .send({ email: "user4@example.com", password: "Strong1!", name: "User 4" })
       .expect(201);
 
-    const setCookies = registerRes.headers["set-cookie"] as string[];
+    const setCookies = registerRes.headers["set-cookie"] as unknown as string[];
     const accessCookie = setCookies.find((c) => c.startsWith("lenglish_access="))!;
     const accessPair = accessCookie.split(";", 1)[0]!;
 
