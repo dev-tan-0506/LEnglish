@@ -3,12 +3,12 @@
 ## Current Status
 
 **Active Phase:** 1 (In Progress)
-**Current Step:** execute-phase wave 2 complete
-**Stopped At:** Completed Phase 1 Plan 02; ready for Plan 03
-**Resume File:** .planning/phases/01-authentication-system/01-03-PLAN.md
+**Current Step:** execute-phase wave 3 complete
+**Stopped At:** Completed Phase 1 Plan 04; ready for Plan 05
+**Resume File:** .planning/phases/01-authentication-system/01-05-PLAN.md
 **Plan Count:** 6
 **Execution Waves:** 5
-**Plans Completed:** 2/6
+**Plans Completed:** 4/6
 
 ## Project Reference
 
@@ -22,7 +22,9 @@ See: .planning/PROJECT.md (updated 2026-05-05)
 - 2026-05-06: Created Phase 1 RESEARCH.md, VALIDATION.md, and 6 execution plans.
 - 2026-05-06: Completed 01-01 workspace foundation with separated NestJS API and Next.js web apps.
 - 2026-05-06: Completed 01-02 backend auth core (register/login/refresh/logout/me) with cookie sessions.
+- 2026-05-14: Completed 01-03 backend profile management, avatar support, mail abstraction, and password reset flow.
+- 2026-05-14: Completed 01-04 frontend auth API client, auth screens, reset password UI, and protected route middleware.
 
 ## Next Step
 
-Run `$gsd-execute-phase 1 --wave 3` to continue (plans 01-03 and 01-04), or `$gsd-execute-phase 1` to resume from the next incomplete plan.
+Run `$gsd-execute-phase 1 --wave 4` to continue with plan 01-05, or `$gsd-execute-phase 1` to resume from the next incomplete plan.
