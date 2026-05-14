@@ -22,6 +22,7 @@ export const envSchema = z.object({
   SMTP_PORT: z.coerce.number().int().positive().default(1025),
   SMTP_SECURE: booleanish.default(false),
   SMTP_USER: z.string().optional().default(""),
+  SMTP_PASS: z.string().optional().default(""),
   SMTP_PASSWORD: z.string().optional().default(""),
   SMTP_FROM: z.string().optional().default(""),
   PUBLIC_WEB_URL: z.string().url().default("http://localhost:3000"),

@@ -22,7 +22,9 @@ export class MailService {
     if (this.configService.get("NODE_ENV") !== "test") {
       // SMTP transport is intentionally isolated here so controllers and flows do not depend on provider details.
       const smtpHost = this.configService.get("SMTP_HOST");
+      const smtpPass = this.configService.get("SMTP_PASS") || this.configService.get("SMTP_PASSWORD");
       void smtpHost;
+      void smtpPass;
     }
 
     return message;
