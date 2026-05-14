@@ -30,6 +30,7 @@ key-files:
     - apps/api/src/mail/mail.service.ts
     - apps/api/test/profile.integration.spec.ts
     - apps/api/test/password-reset.integration.spec.ts
+    - apps/api/prisma/migrations/000002_profile_fields/migration.sql
     - .planning/phases/01-authentication-system/01-USER-SETUP.md
   modified:
     - apps/api/prisma/schema.prisma
@@ -74,6 +75,7 @@ completed: 2026-05-14
 
 1. **Tasks 1-3: Backend profile, avatar, and password reset flow** - `463b3e2` (feat)
 2. **SMTP setup alias alignment** - `b2859ab` (fix)
+3. **Profile fields database migration** - `9b5a0a6` (fix)
 
 ## Files Created/Modified
 
@@ -86,6 +88,7 @@ completed: 2026-05-14
 - `apps/api/src/password-reset/password-reset.repository.ts` - Prisma reset-token persistence access.
 - `apps/api/src/mail/mail.service.ts` - Test-friendly mail abstraction for reset links.
 - `apps/api/prisma/schema.prisma` - Profile model extended for D-10/D-12 fields.
+- `apps/api/prisma/migrations/000002_profile_fields/migration.sql` - Database migration for profile fields.
 - `apps/api/test/profile.integration.spec.ts` - Profile and avatar integration coverage.
 - `apps/api/test/password-reset.integration.spec.ts` - Password reset integration coverage.
 
