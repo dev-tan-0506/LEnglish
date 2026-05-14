@@ -22,11 +22,17 @@ model User {
 }
 
 model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique @map("user_id")
-  name      String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id                  String    @id @default(cuid())
+  userId              String    @unique @map("user_id")
+  name                String
+  avatarPresetId      String?   @map("avatar_preset_id")
+  avatarUrl           String?   @map("avatar_url")
+  targetToeicScore    Int?      @map("target_toeic_score")
+  bio                 String?
+  birthdate           DateTime?
+  currentEnglishLevel String?   @map("current_english_level")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

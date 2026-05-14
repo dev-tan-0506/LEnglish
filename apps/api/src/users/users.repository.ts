@@ -39,4 +39,12 @@ export class UsersRepository {
       }
     });
   }
+
+  /** Updates a user's password hash. */
+  async updatePasswordHash(userId: string, passwordHash: string) {
+    return this.prismaService.user.update({
+      where: { id: userId },
+      data: { passwordHash }
+    });
+  }
 }

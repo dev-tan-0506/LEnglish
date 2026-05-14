@@ -47,6 +47,12 @@ export class UsersService {
     return this.usersRepository.findByEmail(normalizedEmail);
   }
 
+  /** Replaces a user's password with a freshly hashed value. */
+  async updatePassword(userId: string, password: string) {
+    const passwordHash = await argon2.hash(password);
+    return this.usersRepository.updatePasswordHash(userId, passwordHash);
+  }
+
   /** Removes passwordHash from a user-shaped object. */
   sanitizeUser<T extends { passwordHash?: unknown }>(user: T) {
     const { passwordHash: _passwordHash, ...rest } = user as any;

@@ -49,4 +49,15 @@ export class AuthRepository {
       }
     });
   }
+
+  /** Revokes every active refresh token for a user. */
+  async revokeActiveRefreshTokensForUser(userId: string, revokedAt: Date) {
+    await this.prismaService.refreshToken.updateMany({
+      where: {
+        userId,
+        revokedAt: null
+      },
+      data: { revokedAt }
+    });
+  }
 }

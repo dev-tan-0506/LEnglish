@@ -5,6 +5,8 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { UsersModule } from "./users/users.module";
 import { HealthController } from "./health.controller";
 import { AuthModule } from "./auth/auth.module";
+import { PasswordResetModule } from "./password-reset/password-reset.module";
+import { ProfileModule } from "./profile/profile.module";
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { AuthModule } from "./auth/auth.module";
     }),
     PrismaModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    ProfileModule,
+    PasswordResetModule
   ],
   controllers: [HealthController]
 })

@@ -24,6 +24,7 @@ export const envSchema = z.object({
   SMTP_USER: z.string().optional().default(""),
   SMTP_PASSWORD: z.string().optional().default(""),
   SMTP_FROM: z.string().optional().default(""),
+  PUBLIC_WEB_URL: z.string().url().default("http://localhost:3000"),
   PASSWORD_RESET_URL: z.string().optional().default("http://localhost:3000/reset-password")
 });
 
