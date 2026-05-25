@@ -4,10 +4,9 @@ import crypto from "node:crypto";
 import { AuthRepository } from "../auth/auth.repository";
 import { MailService } from "../mail/mail.service";
 import { UsersService } from "../users/users.service";
+import { RESET_TOKEN_TTL_MS } from "./password-reset.consts";
 import { PASSWORD_RESET_MESSAGES } from "./password-reset.messages";
 import { PasswordResetRepository } from "./password-reset.repository";
-
-const RESET_TOKEN_TTL_MS = 60 * 60 * 1000;
 
 @Injectable()
 export class PasswordResetService {

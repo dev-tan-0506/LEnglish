@@ -1,11 +1,12 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { register } from "../../lib/api/auth";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { register } from "../../services/auth";
+import { LEnButton } from "../ui/LEnButton";
+import { LEnInput } from "../ui/LEnInput";
 import { authDestination, isStrongPassword, passwordPolicyText } from "./auth.forms";
+import { AUTH_ERROR_MESSAGES } from "../../messages/auth.messages";
 
 type SignupFormProps = {
   onLogin: () => void;
@@ -26,7 +27,7 @@ export function SignupForm({ onLogin }: SignupFormProps) {
     setError("");
 
     if (!email || !name || !password) {
-      setError("Name, email, and password are required.");
+      setError(AUTH_ERROR_MESSAGES.SIGNUP_REQUIRED_FIELDS);
       return;
     }
 
@@ -40,7 +41,7 @@ export function SignupForm({ onLogin }: SignupFormProps) {
       const user = await register({ email, password, name });
       router.push(authDestination(user));
     } catch {
-      setError("This email may already be in use.");
+      setError(AUTH_ERROR_MESSAGES.SIGNUP_EMAIL_IN_USE);
     } finally {
       setLoading(false);
     }
@@ -48,16 +49,20 @@ export function SignupForm({ onLogin }: SignupFormProps) {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <Input label="Name" name="name" value={name} onChange={(event) => setName(event.target.value)} />
-      <Input label="Email" name="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-      <Input label="Password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+      <LEnInput label="Name" name="name" value={name} onChange={(event) => setName(event.target.value)} />
+      <LEnInput label="Email" name="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      <LEnInput label="Password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
       {error ? <p className="text-sm font-semibold text-rose-200">{error}</p> : null}
-      <Button className="w-full" disabled={loading} type="submit">
+      <LEnButton className="w-full" disabled={loading} type="submit">
         {loading ? "Creating..." : "Create account"}
-      </Button>
-      <button type="button" onClick={onLogin} className="w-full rounded-full px-2 py-1 text-sm font-bold text-cyan-100 hover:bg-white/10">
+      </LEnButton>
+      <LEnButton type="button" onClick={onLogin} className="w-full rounded-full px-2 py-1 text-sm font-bold text-cyan-100 hover:bg-white/10">
         Back to sign in
-      </button>
+      </LEnButton>
     </form>
   );
 }
+
+
+
+

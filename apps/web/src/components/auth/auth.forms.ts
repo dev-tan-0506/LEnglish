@@ -1,4 +1,4 @@
-import type { AuthUser } from "../../lib/api/auth";
+﻿import type { AuthUser } from "../../types/auth.types";
 
 export const passwordPolicyText =
   "Use at least 8 characters with an uppercase letter, a number, and a symbol.";
@@ -14,3 +14,5 @@ export function isStrongPassword(password: string) {
 export function authDestination(user: AuthUser) {
   return user.profile?.targetToeicScore ? "/profile" : "/onboarding";
 }
+
+

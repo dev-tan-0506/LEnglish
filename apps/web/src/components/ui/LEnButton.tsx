@@ -13,7 +13,7 @@ const variants = {
 };
 
 /** Renders the shared press-down button treatment for auth screens. */
-export function Button({ className = "", variant = "primary", ...props }: ButtonProps) {
+export function LEnButton({ className = "", variant = "primary", ...props }: ButtonProps) {
   return (
     <button
       className={`min-h-11 rounded-full px-5 py-3 text-sm font-extrabold transition focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${className}`}

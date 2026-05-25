@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { login, register, requestPasswordReset, confirmPasswordReset } from "../../lib/api/auth";
+﻿import { afterEach, describe, expect, it, vi } from "vitest";
+import { login, register, requestPasswordReset, confirmPasswordReset } from "../../services/auth";
 import { authDestination, isStrongPassword } from "./auth.forms";
 import { AuthCard } from "./AuthCard";
 import { ResetPasswordForm } from "./ResetPasswordForm";
@@ -41,3 +41,4 @@ describe("auth frontend (phase 01-04)", () => {
     expect(ResetPasswordForm).toBeTypeOf("function");
   });
 });
+

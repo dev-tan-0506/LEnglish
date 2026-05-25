@@ -25,8 +25,9 @@ export function buildApiUrl(path: string) {
 export async function apiRequest<T>(path: string, options: ApiRequestOptions = {}): Promise<T> {
   const headers = new Headers(options.headers);
   const hasBody = options.body !== undefined;
+  const isFormData = options.body instanceof FormData;
 
-  if (hasBody && !headers.has("content-type")) {
+  if (hasBody && !isFormData && !headers.has("content-type")) {
     headers.set("content-type", "application/json");
   }
 
@@ -34,7 +35,7 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
     ...options,
     credentials: "include",
     headers,
-    body: hasBody ? JSON.stringify(options.body) : undefined
+    body: hasBody ? (isFormData ? options.body as FormData : JSON.stringify(options.body)) : undefined
   });
 
   const text = await response.text();
@@ -46,3 +47,22 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
 
   return data as T;
 }
+
+/** Convenience API instance with method-based helpers. */
+export const api = {
+  get<T>(path: string, options: Omit<ApiRequestOptions, "method" | "body"> = {}) {
+    return apiRequest<T>(path, { ...options, method: "GET" });
+  },
+  post<T>(path: string, body?: unknown, options: Omit<ApiRequestOptions, "method" | "body"> = {}) {
+    return apiRequest<T>(path, { ...options, method: "POST", body });
+  },
+  patch<T>(path: string, body?: unknown, options: Omit<ApiRequestOptions, "method" | "body"> = {}) {
+    return apiRequest<T>(path, { ...options, method: "PATCH", body });
+  },
+  put<T>(path: string, body?: unknown, options: Omit<ApiRequestOptions, "method" | "body"> = {}) {
+    return apiRequest<T>(path, { ...options, method: "PUT", body });
+  },
+  delete<T>(path: string, options: Omit<ApiRequestOptions, "method" | "body"> = {}) {
+    return apiRequest<T>(path, { ...options, method: "DELETE" });
+  }
+};

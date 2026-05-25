@@ -13,7 +13,7 @@
 **Goal:** End-to-end user registration, login, and profile management across NestJS and Next.js.
 **Requirements:** AUTH-01, AUTH-02, AUTH-03, AUTH-04
 **UI hint:** yes
-**Plans:** 6 plans in 5 waves
+**Plans:** 4/6 plans complete
 **Success Criteria:**
 1. User can register and log in to the application, receiving a JWT token.
 2. User can view and update their profile details (name, target TOEIC score).

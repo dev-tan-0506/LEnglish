@@ -2,16 +2,9 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import crypto from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import { extname, join } from "node:path";
+import { ALLOWED_AVATAR_MIME_TYPES, AVATAR_UPLOAD_DIR, MAX_AVATAR_BYTES } from "./profile.consts";
 import { PROFILE_ERROR_MESSAGES } from "./profile.messages";
 import { PRESET_AVATAR_IDS, type AvatarUploadFile } from "./profile.types";
-
-const AVATAR_UPLOAD_DIR = join(process.cwd(), "uploads", "avatars");
-const MAX_AVATAR_BYTES = 1024 * 1024;
-const ALLOWED_MIME_TYPES = new Map([
-  ["image/png", ".png"],
-  ["image/jpeg", ".jpg"],
-  ["image/webp", ".webp"]
-]);
 
 @Injectable()
 export class AvatarService {
@@ -26,7 +19,7 @@ export class AvatarService {
 
   /** Validates an uploaded image and stores it under the local avatar directory. */
   async storeCustomAvatar(file: AvatarUploadFile) {
-    const extension = ALLOWED_MIME_TYPES.get(file.mimetype);
+    const extension = ALLOWED_AVATAR_MIME_TYPES.get(file.mimetype);
     if (!extension) {
       throw new BadRequestException(PROFILE_ERROR_MESSAGES.INVALID_AVATAR_FILE_TYPE);
     }

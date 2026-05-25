@@ -7,10 +7,10 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User can log in and maintain active session
-- [ ] **AUTH-03**: User can view and edit profile (name, avatar, target TOEIC score)
-- [ ] **AUTH-04**: User can reset password via email
+- [x] **AUTH-01**: User can sign up with email and password
+- [x] **AUTH-02**: User can log in and maintain active session
+- [x] **AUTH-03**: User can view and edit profile (name, avatar, target TOEIC score)
+- [x] **AUTH-04**: User can reset password via email
 
 ### Vocabulary Content
 
@@ -69,10 +69,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
 | VOCB-01 | Phase 2 | Pending |
 | VOCB-02 | Phase 2 | Pending |
 | VOCB-03 | Phase 2 | Pending |

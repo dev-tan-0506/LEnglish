@@ -6,7 +6,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 /** Renders a labeled pill input with accessible error text. */
-export function Input({ label, error, id, className = "", ...props }: InputProps) {
+export function LEnInput({ label, error, id, className = "", ...props }: InputProps) {
   const inputId = id ?? props.name ?? label.toLowerCase().replace(/\s+/g, "-");
   const errorId = `${inputId}-error`;
 

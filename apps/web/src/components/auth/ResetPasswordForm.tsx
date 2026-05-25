@@ -1,11 +1,12 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { confirmPasswordReset } from "../../lib/api/auth";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { confirmPasswordReset } from "../../services/auth";
+import { LEnButton } from "../ui/LEnButton";
+import { LEnInput } from "../ui/LEnInput";
 import { isStrongPassword, passwordPolicyText } from "./auth.forms";
+import { AUTH_ERROR_MESSAGES } from "../../messages/auth.messages";
 
 type ResetPasswordFormProps = {
   token: string | null;
@@ -16,7 +17,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(token ? "" : "Reset token is missing.");
+  const [error, setError] = useState(token ? "" : AUTH_ERROR_MESSAGES.RESET_TOKEN_MISSING);
   const [loading, setLoading] = useState(false);
 
   /** Submits a valid reset token and matching new password. */
@@ -31,7 +32,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords must match.");
+      setError(AUTH_ERROR_MESSAGES.RESET_PASSWORD_MISMATCH);
       return;
     }
 
@@ -40,7 +41,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       await confirmPasswordReset({ token, password });
       router.push("/login");
     } catch {
-      setError("This reset link is invalid or expired.");
+      setError(AUTH_ERROR_MESSAGES.RESET_LINK_INVALID);
     } finally {
       setLoading(false);
     }
@@ -48,12 +49,16 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <Input label="New password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
-      <Input label="Confirm password" name="confirm-password" type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
+      <LEnInput label="New password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+      <LEnInput label="Confirm password" name="confirm-password" type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
       {error ? <p className="text-sm font-semibold text-rose-200">{error}</p> : null}
-      <Button className="w-full" disabled={loading || !token} type="submit">
+      <LEnButton className="w-full" disabled={loading || !token} type="submit">
         {loading ? "Resetting..." : "Reset password"}
-      </Button>
+      </LEnButton>
     </form>
   );
 }
+
+
+
+

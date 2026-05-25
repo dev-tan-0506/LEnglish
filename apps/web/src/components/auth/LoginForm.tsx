@@ -1,11 +1,12 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { login } from "../../lib/api/auth";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { login } from "../../services/auth";
+import { LEnButton } from "../ui/LEnButton";
+import { LEnInput } from "../ui/LEnInput";
 import { authDestination } from "./auth.forms";
+import { AUTH_ERROR_MESSAGES } from "../../messages/auth.messages";
 
 type LoginFormProps = {
   onSignup: () => void;
@@ -26,7 +27,7 @@ export function LoginForm({ onSignup, onForgot }: LoginFormProps) {
     setError("");
 
     if (!email || !password) {
-      setError("Email and password are required.");
+      setError(AUTH_ERROR_MESSAGES.LOGIN_REQUIRED_FIELDS);
       return;
     }
 
@@ -35,7 +36,7 @@ export function LoginForm({ onSignup, onForgot }: LoginFormProps) {
       const user = await login({ email, password });
       router.push(authDestination(user));
     } catch {
-      setError("Email or password is incorrect.");
+      setError(AUTH_ERROR_MESSAGES.LOGIN_INVALID_CREDENTIALS);
     } finally {
       setLoading(false);
     }
@@ -43,20 +44,23 @@ export function LoginForm({ onSignup, onForgot }: LoginFormProps) {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <Input label="Email" name="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-      <Input label="Password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+      <LEnInput label="Email" name="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      <LEnInput label="Password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
       {error ? <p className="text-sm font-semibold text-rose-200">{error}</p> : null}
-      <Button className="w-full" disabled={loading} type="submit">
+      <LEnButton className="w-full" disabled={loading} type="submit">
         {loading ? "Signing in..." : "Sign in"}
-      </Button>
+      </LEnButton>
       <div className="flex items-center justify-between gap-3 text-sm font-bold text-cyan-100">
-        <button type="button" onClick={onForgot} className="rounded-full px-2 py-1 hover:bg-white/10">
+        <LEnButton type="button" onClick={onForgot} className="rounded-full px-2 py-1 hover:bg-white/10">
           Forgot password
-        </button>
-        <button type="button" onClick={onSignup} className="rounded-full px-2 py-1 hover:bg-white/10">
+        </LEnButton>
+        <LEnButton type="button" onClick={onSignup} className="rounded-full px-2 py-1 hover:bg-white/10">
           Create account
-        </button>
+        </LEnButton>
       </div>
     </form>
   );
 }
+
+
+
