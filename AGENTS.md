@@ -69,3 +69,9 @@ These rules capture the current project conventions for future coding work.
 ## Validation After Refactors
 
 - After structural refactors (moves/renames/import rewires), run the relevant test scope before considering the task complete.
+
+## Runtime Policy
+
+- This project is Codex-first and should not depend on Claude runtime for normal phase execution.
+- Do not require `claude` login as a prerequisite to continue phase work.
+- If a GSD command path requires Claude-authenticated runtime, execute the phase manually in Codex using existing plan artifacts (`*-PLAN.md`) and generate the expected summary/verification artifacts directly.

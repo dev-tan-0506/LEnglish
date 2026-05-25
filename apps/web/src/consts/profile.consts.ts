@@ -1,4 +1,4 @@
-﻿import type { EnglishLevel } from "../../types/profile.types";
+﻿import type { EnglishLevel } from "../types/profile.types";
 
 export const TARGET_TOEIC_OPTIONS = [
   { value: 450, label: "450" },
@@ -16,6 +16,7 @@ export const ENGLISH_LEVEL_OPTIONS: ReadonlyArray<{ value: EnglishLevel; label: 
 ];
 
 export const PRESET_AVATAR_OPTIONS = ["owl-blue", "fox-green", "cat-violet", "bear-amber", "panda-mint", "robot-cyan"] as const;
+
 
 
 

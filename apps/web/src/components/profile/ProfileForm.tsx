@@ -4,11 +4,34 @@ import { useEffect, useState, type FormEvent } from "react";
 import type { EnglishLevel, Profile } from "../../types/profile.types";
 import { getMyProfile, updateMyProfile } from "../../services/profile";
 import { TARGET_TOEIC_OPTIONS } from "../../consts/profile.consts";
+import { ApiError } from "../../lib/client";
 import { AvatarPicker } from "./AvatarPicker";
 import { EnglishLevelSelector } from "./EnglishLevelSelector";
 import { LEnButton } from "../ui/LEnButton";
 import { LEnInput } from "../ui/LEnInput";
 import { LEnSelect } from "../ui/LEnSelect";
+
+/** Extracts a user-facing message from API validation or request errors. */
+function getProfileSaveErrorMessage(error: unknown) {
+  if (!(error instanceof ApiError)) {
+    return "Lưu hồ sơ thất bại. Vui lòng thử lại.";
+  }
+
+  if (error.status === 400) {
+    const details = error.details as { message?: string | string[] } | undefined;
+    if (Array.isArray(details?.message) && details.message.length > 0) {
+      return details.message.join(", ");
+    }
+
+    if (typeof details?.message === "string" && details.message.trim()) {
+      return details.message;
+    }
+  }
+
+  return typeof error.message === "string" && error.message.trim()
+    ? error.message
+    : "Lưu hồ sơ thất bại. Vui lòng thử lại.";
+}
 
 /** Loads and edits authenticated user profile fields and avatar settings. */
 export function ProfileForm() {
@@ -19,6 +42,7 @@ export function ProfileForm() {
   const [birthdate, setBirthdate] = useState("");
   const [currentEnglishLevel, setCurrentEnglishLevel] = useState<EnglishLevel | null>(null);
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState<"success" | "error">("success");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -45,10 +69,12 @@ export function ProfileForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!name.trim()) {
+      setStatusType("error");
       setStatus("Tên không được để trống.");
       return;
     }
     if (!currentEnglishLevel) {
+      setStatusType("error");
       setStatus("Vui lòng chọn trình độ tiếng Anh.");
       return;
     }
@@ -64,9 +90,11 @@ export function ProfileForm() {
         currentEnglishLevel
       });
       setProfile(updated);
+      setStatusType("success");
       setStatus("Lưu hồ sơ thành công.");
-    } catch {
-      setStatus("Lưu hồ sơ thất bại. Vui lòng thử lại.");
+    } catch (error) {
+      setStatusType("error");
+      setStatus(getProfileSaveErrorMessage(error));
     } finally {
       setSaving(false);
     }
@@ -112,7 +140,7 @@ export function ProfileForm() {
 
       <EnglishLevelSelector value={currentEnglishLevel} onChange={setCurrentEnglishLevel} />
 
-      {status ? <p className="text-sm font-semibold text-emerald-300">{status}</p> : null}
+      {status ? <p className={`text-sm font-semibold ${statusType === "success" ? "text-emerald-300" : "text-rose-300"}`}>{status}</p> : null}
 
       <LEnButton className="w-full bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-[0_6px_0_rgb(76_29_149)] hover:from-violet-500 hover:to-violet-600" disabled={saving} type="submit">
         {saving ? "Đang lưu..." : "Lưu hồ sơ"}

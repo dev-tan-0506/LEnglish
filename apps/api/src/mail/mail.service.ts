@@ -39,4 +39,13 @@ export class MailService {
   clearSentMessages() {
     this.sentMessages.length = 0;
   }
+
+  /** Returns the latest test mailbox message when test transport is enabled. */
+  getLatestTestMailboxMessage() {
+    if (this.configService.get("NODE_ENV") !== "test") {
+      return null;
+    }
+
+    return this.sentMessages.at(-1) ?? null;
+  }
 }
